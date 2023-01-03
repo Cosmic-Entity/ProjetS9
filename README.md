@@ -26,7 +26,7 @@ python test.py
 
 ### How to Train ESRGAN models
 
-1. Prepare datasets. More details are in [`codes/data`](https://github.com/Cosmic-Entity/ProjetS9/blob/main/ESRGAN/Training/BasicSR-lite/codes/data)
+1. Prepare datasets. More details are in [`ESRGAN/Training/BasicSR-lite/codes/data`](https://github.com/Cosmic-Entity/ProjetS9/blob/main/ESRGAN/Training/BasicSR-lite/codes/data)
 1. Choose an existing pretrained ESRGAN model such as `RRDB_ESRGAN_x4.pth`.
 1. Modify the configuration file  `options/train/train_esrgan.json`
 1. Run command: `python train.py -opt options/train/train_esrgan.json` or in google colab : `%run /content/drive/.../BasicSR-lite/codes/train.py -opt /content/drive/.../BasicSR-lite/codes/options/train/train_template.yml`

@@ -1,9 +1,11 @@
 # Projet S9 : Super Resolution
 
-#### Dependencies
+### Dependencies
 - Python 3
 - [PyTorch >= 1.0](https://pytorch.org/) (CUDA version >= 7.5 if installing with CUDA. [More details](https://pytorch.org/get-started/previous-versions/))
 - Python packages:  `pip install numpy opencv-python`
+- NVIDIA GPU + [CUDA](https://developer.nvidia.com/cuda-downloads)
+
 
 ### Test models
 1. Clone this github repository.
@@ -18,8 +20,8 @@ python test.py
 ```
 5. The results are in `./results` folder.
 
-## How to Train
-### Train ESRGAN (SRGAN) models
+### How to Train
+#### Train ESRGAN (SRGAN) models
 We use a PSNR-oriented pretrained SR model to initialize the parameters for better quality. According to the author's paper and some testing, this will also stabilize the GAN training and allows for faster convergence. 
 
 1. Prepare datasets, usually the DIV2K dataset. More details are in [`codes/data`](https://github.com/BlueAmulet/BasicSR/tree/master/codes/data) and [

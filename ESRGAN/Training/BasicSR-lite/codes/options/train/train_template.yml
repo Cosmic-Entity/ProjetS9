@@ -1,0 +1,88 @@
+name: '4x_template'
+use_tb_logger: false
+model: 'srragan'
+scale: 4
+batch_multiplier: 1
+gpu_ids: [0]
+
+# Dataset options:
+datasets:
+  train:
+    name: 'Dataset'
+    mode: 'LRHROTF'
+    dataroot_HR: '/content/drive/MyDrive/ESRGAN/training/BasicSR-lite/datasets/train/HR'
+    dataroot_LR: '/content/drive/MyDrive/ESRGAN/training/BasicSR-lite/datasets/train/LR'
+    subset_file: null
+    use_shuffle: true
+    n_workers: 4
+    batch_size: 8
+    HR_size: 128 # patch size. Default: 128
+
+    # Rotations augmentations:
+    use_flip: true
+    use_rot: true
+  val:
+    name: 'Validation'
+    mode: 'LRHROTF'
+    dataroot_HR: '/content/drive/MyDrive/ESRGAN/training/BasicSR-lite/datasets/val/HR'
+    dataroot_LR: '/content/drive/MyDrive/ESRGAN/training/BasicSR-lite/datasets/val/LR'
+
+path:
+  root: '/content/drive/MyDrive/ESRGAN/training/BasicSR-lite'
+  pretrain_model_G: '/content/drive/MyDrive/ESRGAN/training/BasicSR-lite/experiments/pretrained_models/RRDB_ESRGAN_x4_old_arch.pth'
+  # resume_state: '../experiments/debug_002_RRDB_ESRGAN_x4_DIV2K/training_state/'
+
+# Generator:
+network_G:
+  which_model_G: 'RRDB_net'
+  norm_type: null
+  mode: 'CNA'
+  nf: 64 
+  nb: 23
+  in_nc: 3 
+  out_nc: 3 
+  gc: 32
+  group: 1
+  convtype: 'Conv2D' 
+  net_act: 'leakyrelu'
+
+# Discriminator:
+network_D:
+  which_model_D: 'discriminator_vgg'
+  norm_type: 'batch'
+  act_type: 'leakyrelu'
+  mode: 'CNA'
+  nf: 64
+  in_nc: 3
+
+# Training options:
+train:
+  # Optimizer:
+  lr_G: !!float 1e-4 
+  lr_D: !!float 1e-4
+
+  # ESRGAN-FS Augmentations
+  use_frequency_separation: false
+
+  # Scheduler:
+  lr_scheme: 'MultiStepLR'
+  lr_steps: [50000, 100000, 200000, 300000]
+  lr_gamma: 0.5
+
+  # Losses:
+  pixel_criterion: 'l1'
+  pixel_weight: !!float 1e-2
+  feature_criterion: 'l1'
+  feature_weight: 1
+  gan_type: 'vanilla'
+  gan_weight: !!float 5e-3
+
+# Other training options:
+  manual_seed: 0
+  niter: !!float 5e5
+  val_freq: 1000 # 5e3
+
+logger:
+  print_freq: 200
+  save_checkpoint_freq: !!float 5e3
+  backup_freq: 200

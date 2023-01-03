@@ -38,4 +38,6 @@ python test.py
 3. I tried to train the ESRGAN model with human faces to improve the model's efficiency on images including those features. I prepared a dataset of croped images of NBA player Lebron James. I interrupted the training process after more than 2h because I realised it would take 2 days for it to be done. The google colab GPU just wasn't powerful enough.
 
 
+### Bibliography
 
+Link to the original ESRGAN git repository : https://github.com/xinntao/ESRGAN

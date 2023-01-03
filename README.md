@@ -7,7 +7,7 @@
 - NVIDIA GPU + [CUDA](https://developer.nvidia.com/cuda-downloads)
 
 
-### Test models
+### How to Test the ESRGAN model
 1. Clone this github repository.
 ```
 git clone https://github.com/Cosmic-Entity/ProjetS9/ESRGAN

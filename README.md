@@ -30,5 +30,4 @@ python test.py
 (Faster IO speed)](https://github.com/xinntao/BasicSR/wiki/Faster-IO-speed). 
 1. Choose an existing pretrained ESRGAN model such as `RRDB_ESRGAN_x4.pth`.
 1. Modify the configuration file  `options/train/train_esrgan.json`
-1. Run command: `python train.py -opt options/train/train_esrgan.json`
-Or in Google Colab : `%run /content/drive/.../BasicSR-lite/codes/train.py -opt /content/drive/.../BasicSR-lite/codes/options/train/train_template.yml`
+1. Run command: `python train.py -opt options/train/train_esrgan.json` or in google colab : `%run /content/drive/.../BasicSR-lite/codes/train.py -opt /content/drive/.../BasicSR-lite/codes/options/train/train_template.yml`

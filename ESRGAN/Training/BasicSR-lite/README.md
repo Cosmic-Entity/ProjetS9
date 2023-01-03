@@ -1,40 +1,4 @@
 # BasicSR [[ESRGAN]](https://github.com/xinntao/ESRGAN) [[SPSR]](https://github.com/Maclory/SPSR) [[SFTGAN]](https://github.com/xinntao/SFTGAN)
-
-:black_square_button: TODO
-
-- [ ] Test TV loss/regularization (needs to balance loss weight with other losses). 
-- [ ] Test HFEN loss (needs to balance loss weight with other losses). 
-- [ ] Test [Partial Convolution based Padding](https://github.com/NVIDIA/partialconv) (PartialConv2D).
-- [ ] Test PartialConv2D with random masks.
-- [ ] Add automatic model scale change (preserve conv layers, estimate upscale layers).
-- [ ] Add automatic loading of old models and new ESRGAN models.
-- [ ] Downscale images before and/or after inference. Helps in cleaning up some noise or bring images back to the original scale.	
-- [ ] Import GMFN's recurrent network and add the feature loss to their MSE model, should have better MSE results with SRGAN's features/textures (Needs testing)
-
-Done
-- [:white_check_mark:] Add on the fly augmentations (gaussian noise, blur, JPEG compression).
-- [:white_check_mark:] Add TV loss/regularization options. Useful for denoising tasks, reduces Total Variation.
-- [:white_check_mark:] Add HFEN loss. Useful to keep high frequency information. Used Gaussian filter to reduce the effect of noise.
-- [:white_check_mark:] Add [Partial Convolution based Padding](https://github.com/NVIDIA/partialconv) (PartialConv2D). It should help prevent edge padding issues. Zero padding is the default and typically has best performance, PartialConv2D has better performance and converges faster for segmentation and classification (https://arxiv.org/pdf/1811.11718.pdf). Code has been added, but the switch makes pretained models using Conv2D incompatible. Training new models for testing. (May be able to test inpainting and denoising)
-- [:white_check_mark:] Added SSIM and MS-SSIM loss functions.
-
-
-An image super-resolution toolkit flexible for development. It now provides:
-
-1. **PSNR-oriented SR** models (e.g., SRCNN, SRResNet and etc). You can try different architectures, e.g, ResNet Block, ResNeXt Block, Dense Block, Residual Dense Block, Poly Block, Dual Path Block, Squeeze-and-Excitation Block, Residual-in-Residual Dense Block and etc.
-<!--   1. want to compare more structures for SR. e.g. ResNet Block, ResNeXt Block, Dense Block, Residual Dense Block, Poly Block, Dual Path Block, Squeeze-and-Excitation Block and etc.
-   1. want to provide some useful tricks for training SR networks.
-   1. We are also curious to know what is the upper bound of PSNR for bicubic downsampling kernel by using an extremely large model.-->
-2. [**Enhanced SRGAN**](https://github.com/xinntao/ESRGAN) model (It can also train the **SRGAN** model). Enhanced SRGAN achieves consistently better visual quality with more realistic and natural textures than [SRGAN](https://arxiv.org/abs/1609.04802) and won the first place in the [PIRM2018-SR Challenge](https://www.pirm2018.org/PIRM-SR.html). For more details, please refer to [Paper](https://arxiv.org/abs/1809.00219), [ESRGAN repo](https://github.com/xinntao/ESRGAN). (If you just want to test the model, [ESRGAN repo](https://github.com/xinntao/ESRGAN) provides simpler testing codes.)
-<p align="center">
-  <img height="350" src="https://github.com/xinntao/ESRGAN/blob/master/figures/baboon.jpg">
-</p>
-
-3. [**SFTGAN**](https://github.com/xinntao/CVPR18-SFTGAN) model. It adopts Spatial Feature Transform (SFT) to effectively incorporate other conditions/priors, like semantic prior for image SR, representing by segmentation probability maps. For more details, please refer to [Paper](https://arxiv.org/abs/1804.02815), [SFTGAN repo](https://github.com/xinntao/CVPR18-SFTGAN).
-<p align="center">
-  <img height="220" src="https://github.com/xinntao/SFTGAN/blob/master/figures/network_structure.png">
-</p>
-
     
 ## Table of Contents
 1. [Dependencies](#dependencies)
@@ -42,13 +6,6 @@ An image super-resolution toolkit flexible for development. It now provides:
 1. [Usage](#usage)
 1. [Datasets](#datasets)
 1. [Pretrained models](#pretrained-models)
-
-### Dependencies
-
-- Python 3 (Recommend to use [Anaconda](https://www.anaconda.com/download/#linux))
-- [PyTorch >= 0.4.0](https://pytorch.org/)
-- NVIDIA GPU + [CUDA](https://developer.nvidia.com/cuda-downloads)
-- Python packages: `pip install numpy opencv-python`
 
 #### Optional Dependencies
 
@@ -66,65 +23,6 @@ We also provide:
 1. Some useful scripts. More details in [`./codes/scripts`](https://github.com/BlueAmulet/BasicSR/tree/master/codes/scripts). 
 1. [Evaluation codes](https://github.com/BlueAmulet/BasicSR/tree/master/metrics), e.g., PSNR/SSIM metric.
 1. [Wiki](https://github.com/xinntao/BasicSR/wiki), e.g., How to make high quality gif with full (true) color, Matlab bicubic imresize and etc.
-
-# Usage
-### Data and model preparation
-The common **SR datasets** can be found in [Datasets](#datasets). Detailed data preparation can be seen in [`codes/data`](https://github.com/BlueAmulet/BasicSR/tree/master/codes/data).
-
-We provide **pretrained models** in [Pretrained models](#pretrained-models).
-
-## How to Test
-### Test ESRGAN (SRGAN) models
-1. Modify the configuration file `options/test/test_esrgan.json` 
-1. Run command: `python test.py -opt options/test/test_esrgan.json`
-
-### Test SR models
-1. Modify the configuration file `options/test/test_sr.json` 
-1. Run command: `python test.py -opt options/test/test_sr.json`
-
-### Test SPSR models
-1. Modify the configuration file `options/test/test_spsr.json` 
-1. Run command: `python test.py -opt options/test/test_spsr.json`
-
-### Test SFTGAN models
-1. Obtain the segmentation probability maps: `python test_seg.py`
-1. Run command: `python test_sftgan.py`
-
-## How to Train
-### Train ESRGAN (SRGAN) models
-We use a PSNR-oriented pretrained SR model to initialize the parameters for better quality. According to the author's paper and some testing, this will also stabilize the GAN training and allows for faster convergence. 
-
-1. Prepare datasets, usually the DIV2K dataset. More details are in [`codes/data`](https://github.com/BlueAmulet/BasicSR/tree/master/codes/data) and [
-(Faster IO speed)](https://github.com/xinntao/BasicSR/wiki/Faster-IO-speed). 
-1. Optional: If the intention is to replicate the original paper here you would prepare the PSNR-oriented pretrained model. You can also use the original `RRDB_PSNR_x4.pth` as the pretrained model for that purpose, otherwise *any* existing model will work as pretrained.
-1. Modify the configuration file  `options/train/train_esrgan.json`
-1. Run command: `python train.py -opt options/train/train_esrgan.json`
-
-### Train SR models
-1. Prepare datasets, usually the DIV2K dataset. More details are in [`codes/data`](https://github.com/BlueAmulet/BasicSR/tree/master/codes/data). 
-1. Modify the configuration file `options/train/train_sr.json`
-1. Run command: `python train.py -opt options/train/train_sr.json`
-
-### Train SPSR models
-1. Prepare datasets, usually the DIV2K dataset. More details are in [`codes/data`](https://github.com/BlueAmulet/BasicSR/tree/master/codes/data). 
-1. Modify the configuration file `options/train/train_spsr.json`
-1. Run command: `python train.py -opt options/train/train_spsr.json`
-
-### Train SFTGAN models 
-*Pretraining is also important*. We use a PSNR-oriented pretrained SR model (trained on DIV2K) to initialize the SFTGAN model.
-
-1. First prepare the segmentation probability maps for training data: run [`test_seg.py`](https://github.com/BlueAmulet/BasicSR/blob/master/codes/test_seg.py). We provide a pretrained segmentation model for 7 outdoor categories in [Pretrained models](#pretrained-models). We use [Xiaoxiao Li's codes](https://github.com/lxx1991/caffe_mpi) to train our segmentation model and transfer it to a PyTorch model.
-1. Put the images and segmentation probability maps in a folder as described in [`codes/data`](https://github.com/BlueAmulet/BasicSR/tree/master/codes/data).
-1. Transfer the pretrained model parameters to the SFTGAN model. 
-    1. First train with `debug` mode and obtain a saved model.
-    1. Run [`transfer_params_sft.py`](https://github.com/BlueAmulet/BasicSR/blob/master/codes/scripts/transfer_params_sft.py) to initialize the model.
-    1. We provide an initialized model named `sft_net_ini.pth` in [Pretrained models](#pretrained-models)
-1. Modify the configuration file in `options/train/train_sftgan.json`
-1. Run command: `python train.py -opt options/train/train_sftgan.json`
-
-### Resuming Training 
-When resuming training, just pass a option with the name `resume_state`, like , <small>`"resume_state": "../experiments/debug_001_RRDB_PSNR_x4_DIV2K/training_state/200.state"`. </small>
-
 
 # Datasets
 Several common SR datasets are list below. 

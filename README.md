@@ -20,8 +20,7 @@ python test.py
 ```
 5. The results are in `./results` folder.
 
-### How to Train
-#### Train ESRGAN (SRGAN) models
+### How to Train ESRGAN/SRGAN models
 We use a PSNR-oriented pretrained SR model to initialize the parameters for better quality. According to the author's paper and some testing, this will also stabilize the GAN training and allows for faster convergence. 
 
 1. Prepare datasets, usually the DIV2K dataset. More details are in [`codes/data`](https://github.com/BlueAmulet/BasicSR/tree/master/codes/data) and [

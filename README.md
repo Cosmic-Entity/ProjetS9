@@ -6,7 +6,7 @@
 - Python packages:  `pip install numpy opencv-python`
 
 ### Test models
-1. Clone this github repo.
+1. Clone this github repository.
 ```
 git clone https://github.com/xinntao/ESRGAN
 ```

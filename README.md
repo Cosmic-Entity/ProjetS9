@@ -24,7 +24,7 @@ python test.py
 ```
 5. The results are in `./results` folder.
 
-### How to Train ESRGAN/SRGAN models
+### How to Train ESRGAN models
 
 1. Prepare datasets. More details are in [`codes/data`](https://github.com/BlueAmulet/BasicSR/tree/master/codes/data) and [
 (Faster IO speed)](https://github.com/xinntao/BasicSR/wiki/Faster-IO-speed). 

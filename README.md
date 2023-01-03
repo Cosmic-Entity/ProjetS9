@@ -18,6 +18,10 @@ git clone https://github.com/Cosmic-Entity/ProjetS9/ESRGAN
 ```
 python test.py
 ```
+   Or if you are running it in google colab from your drive :
+```
+%run /content/drive/.../ESRGAN/test.py
+```
 5. The results are in `./results` folder.
 
 ### How to Train ESRGAN/SRGAN models
@@ -27,3 +31,4 @@ python test.py
 1. Choose an existing pretrained ESRGAN model such as `RRDB_ESRGAN_x4.pth`.
 1. Modify the configuration file  `options/train/train_esrgan.json`
 1. Run command: `python train.py -opt options/train/train_esrgan.json`
+   Or in Google Colab : %run /content/drive/.../BasicSR-lite/codes/train.py -opt /content/drive/.../BasicSR-lite/codes/options/train/train_template.yml

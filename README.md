@@ -35,7 +35,7 @@ python test.py
 
 1. First I tested the pretrained ESRGAN model on a huge number of images to identity which type of images show the least satisfactory results. I noticed that the model really struggled with human faces.
 2. I ran lots of object classification tests on images before and after Super Resolution using the ESRGAN model in order to figure out the impact of Super Resolution on classification.
-3. I tried to train the ESRGAN model with human faces to improve the model's efficiency on images including those features. I prepared a dataset of croped images of NBA player Lebron James. I interrupted the training process after more than 2h.
+3. I tried to train the ESRGAN model with human faces to improve the model's efficiency on images including those features. I prepared a dataset of croped images of NBA player Lebron James. I interrupted the training process after more than 2h because I realised it would take 2 days for it to be done. The google colab GPU just wasn't powerful enough.
 
 
 

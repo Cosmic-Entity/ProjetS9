@@ -1,0 +1,32 @@
+name: 'SPSR'
+suffix: null
+model: 'spsr'
+scale: 4
+gpu_ids: [0]
+
+datasets:
+  test_1: # the 1st test dataset
+    name: 'seta'
+    mode: 'LR'
+    #dataroot_HR: '../test1/HR'
+    dataroot_LR: '../test1/LR'
+  test_2: # the 2nd test dataset
+    name: 'setb'
+    mode: 'LR'
+    #dataroot_HR: '../test2/HR'
+    dataroot_LR: '../test2/LR'
+
+path:
+  root: 'D:/Code/GitHub/BasicSR' # change to your own root path
+  pretrain_model_G: '../experiments/pretrain_models/spsr.pth'
+
+network_G:
+  which_model_G: 'spsr_net'
+  norm_type: null
+  mode: 'CNA'
+  nf: 64
+  nb: 23
+  in_nc: 3
+  out_nc: 3
+  gc: 32
+  group: 1

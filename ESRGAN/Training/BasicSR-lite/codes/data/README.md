@@ -28,28 +28,11 @@ Dataloader
     1. generate .lmdb file if needed using [`codes/scripts/create_lmdb.py`](https://github.com/xinntao/BasicSR/blob/master/codes/scripts/create_lmdb.py).
     1. modify configurations in `options/train/xxx.json` when training, e.g., `dataroot_HR`, `dataroot_LR`.
 
-### SFTGAN
-SFTGAN is now used for a part of outdoor scenes. 
-
-1. Download OutdoorScene training dataset from [Google Drive](https://drive.google.com/drive/folders/16PIViLkv4WsXk4fV1gDHvEtQxdMq6nfY?usp=sharing) (the training dataset is a little different from that in project page, e.g., image size and format) and OutdoorScene testing dataseet from [Google Drive](https://drive.google.com/drive/u/1/folders/1_uB4EJ2HBLfz1R_F5_zlvIf-SfB-gMzw).
-1. Generate the segmenation probability maps for training and testing dataset using [`codes/test_seg.py`](https://github.com/xinntao/BasicSR/blob/master/codes/test_seg.py).
-1. Put the images in a folder named `img` and put the segmentation .pth files in a folder named `bicseg` as the following figure shows.
-
-<p align="center">
-  <img src="https://c1.staticflickr.com/2/1726/42730268851_9179e94f48.jpg" width="100">
-</p>
-
-4. The same for validation (you can choose some from the test folder) and test folder.
-
 ## General Data Process
 
 ### data augmentation
 
 We use random crop, random flip/rotation, (random scale) for data augmentation. 
-
-### wiki
-
-[Color-conversion-in-SR](https://github.com/xinntao/BasicSR/wiki/Color-conversion-in-SR)
 
 
 <!--## TODO
